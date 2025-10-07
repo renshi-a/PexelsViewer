@@ -1,13 +1,13 @@
 //
-//  File.swift
+//  APIClient.swift
 //  PexelsPackage
 //
 //  Created by air2 on 2025/10/07.
 //
 
+import Alamofire
 import ComposableArchitecture
 import Foundation
-import Alamofire
 
 @DependencyClient
 public struct PexelsAPIClient: Sendable {
@@ -22,7 +22,7 @@ extension PexelsAPIClient: DependencyKey {
         let apiKey = LockIsolated("")
         let baseURL = URL(string: "https://api.pexels.com/v1")!
         let session = Session.default
-        
+
         return Self(
             initialize: { key in
                 apiKey.setValue(key)
@@ -39,7 +39,7 @@ extension PexelsAPIClient: DependencyKey {
             }
         )
     }
-    
+
     private static func performRequest<T: Decodable & Sendable>(
         path: String,
         method: HTTPMethod,
@@ -49,7 +49,7 @@ extension PexelsAPIClient: DependencyKey {
         session: Session
     ) async throws -> T {
         var url = baseURL.appendingPathComponent(path)
-        
+
         if let queryParams = queryParameters {
             var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
             components?.queryItems = queryParams.map { key, value in
@@ -59,11 +59,11 @@ extension PexelsAPIClient: DependencyKey {
                 url = urlWithQuery
             }
         }
-        
+
         let headers: HTTPHeaders = [
             "Authorization": apiKey
         ]
-        
+
         let response = await session.request(
             url,
             method: method,
@@ -72,12 +72,12 @@ extension PexelsAPIClient: DependencyKey {
         .validate()
         .serializingDecodable(T.self)
         .response
-        
+
         switch response.result {
-        case .success(let data):
+        case let .success(data):
             return data
-            
-        case .failure(let error):
+
+        case let .failure(error):
             throw error
         }
     }

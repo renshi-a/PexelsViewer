@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PexelsSearchResponse.swift
 //  PexelsPackage
 //
 //  Created by air2 on 2025/10/07.
@@ -14,7 +14,7 @@ public struct PexelsSearchResponse: Codable, Sendable {
     public let photos: [PexelsPhoto]
     public let totalResults: Int
     public let nextPage: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case page
         case perPage = "per_page"
