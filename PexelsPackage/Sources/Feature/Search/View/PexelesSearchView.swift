@@ -49,6 +49,7 @@ public struct PexelsSearchView: View {
         }
     }
 
+    @ViewBuilder
     private var emptyPlaceHolder: some View {
         VStack(spacing: 16) {
             Image(systemName: "photo.on.rectangle.angled")
@@ -67,6 +68,7 @@ public struct PexelsSearchView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
+    @ViewBuilder
     private var photoGrid: some View {
         ScrollView {
             LazyVGrid(
@@ -78,7 +80,8 @@ public struct PexelsSearchView: View {
             ) {
                 ForEach(Array(store.photos.enumerated()), id: \.element.id) { index, photo in
                     PhotoCell(photo: photo)
-                        .onAppear {
+                        .id(photo.id)
+                        .task {
                             let threshold = max(0, store.photos.count - 8)
                             if index >= threshold {
                                 store.send(.loadMorePhotos)
@@ -119,13 +122,12 @@ private struct PhotoCell: View {
                     .aspectRatio(1, contentMode: .fit)
                     .overlay {
                         Image(systemName: "photo")
-                            .foregroundColor(.gray)
+                            .foregroundStyle(charcoalColor: .surface3)
                     }
             }
             .resizable()
-            .aspectRatio(contentMode: .fill)
             .frame(minWidth: 0, maxWidth: .infinity)
-            .aspectRatio(1, contentMode: .fit)
+            .aspectRatio(1, contentMode: .fill)
             .clipped()
             .cornerRadius(8)
             .onTapGesture {
