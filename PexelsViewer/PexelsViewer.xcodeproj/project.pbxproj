@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4BDF18FD2E94DBDD005F2CBF /* PexelsPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BDF18FC2E94DBDD005F2CBF /* PexelsPackage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4BC9F1FD2E94D92400CAA2DF /* PexelsViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDF18FD2E94DBDD005F2CBF /* PexelsPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				4BC9F1FF2E94D92400CAA2DF /* PexelsViewer */,
+				4BDF18FB2E94DBDD005F2CBF /* Frameworks */,
 				4BC9F1FE2E94D92400CAA2DF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +49,13 @@
 				4BC9F1FD2E94D92400CAA2DF /* PexelsViewer.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4BDF18FB2E94DBDD005F2CBF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +78,7 @@
 			);
 			name = PexelsViewer;
 			packageProductDependencies = (
+				4BDF18FC2E94DBDD005F2CBF /* PexelsPackage */,
 			);
 			productName = PexelsViewer;
 			productReference = 4BC9F1FD2E94D92400CAA2DF /* PexelsViewer.app */;
@@ -260,6 +274,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -289,6 +304,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,6 +340,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4BDF18FC2E94DBDD005F2CBF /* PexelsPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PexelsPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4BC9F1F52E94D92400CAA2DF /* Project object */;
 }
