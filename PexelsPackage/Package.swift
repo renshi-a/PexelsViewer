@@ -83,20 +83,63 @@ struct ExternalLibrary {
 
 let package = Package(
     name: "PexelsPackage",
+    defaultLocalization: "ja",
+    platforms: [.iOS(.v17)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "PexelsPackage",
-            targets: ["PexelsPackage"]),
+            targets: [
+                PexelsModule.core.name,
+                PexelsModule.data.name,
+                PexelsModule.repository.name,
+                PexelsModule.feature.name
+            ]
+        ),
+    ],
+    dependencies: [
+        ExternalLibrary.Package.swiftComposableArchitecture.packageDependency,
+        ExternalLibrary.Package.charcoal.packageDependency,
+        ExternalLibrary.Package.alamofire.packageDependency,
+        ExternalLibrary.Package.kingfisher.packageDependency,
+        ExternalLibrary.Package.imageViewer.packageDependency,
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "PexelsPackage"),
+            name: PexelsModule.core.name,
+            dependencies: [],
+            path: PexelsModule.core.folderPath
+        ),
+        .target(
+            name: PexelsModule.data.name,
+            dependencies: [
+                ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
+                ExternalLibrary.Product.alamofire.targetDependency,
+            ],
+            path: PexelsModule.data.folderPath
+        ),
+        .target(
+            name: PexelsModule.repository.name,
+            dependencies: [
+                ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
+                PexelsModule.core.dependency,
+                PexelsModule.data.dependency
+            ],
+            path: PexelsModule.repository.folderPath
+        ),
+        .target(
+            name: PexelsModule.feature.name,
+            dependencies: [
+                ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
+                ExternalLibrary.Product.kingfisher.targetDependency,
+                ExternalLibrary.Product.imageViewer.targetDependency,
+                PexelsModule.core.dependency,
+                PexelsModule.repository.dependency,
+            ],
+            path: PexelsModule.feature.folderPath
+        ),
         .testTarget(
             name: "PexelsPackageTests",
-            dependencies: ["PexelsPackage"]
+            dependencies: []
         ),
     ]
 )
