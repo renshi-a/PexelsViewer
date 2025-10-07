@@ -11,24 +11,29 @@ import Alamofire
 
 @DependencyClient
 public struct PexelsAPIClient: Sendable {
+    // 初期化する
+    public var initialize: @Sendable (String) -> Void
     // 写真を検索する
     public var searchPhotos: @Sendable (SearchPhotosRequest) async throws -> PexelsSearchResponse
 }
 
 extension PexelsAPIClient: DependencyKey {
     public static var liveValue: Self {
-        let apiKey = ""
+        let apiKey = LockIsolated("")
         let baseURL = URL(string: "https://api.pexels.com/v1")!
         let session = Session.default
         
         return Self(
+            initialize: { key in
+                apiKey.setValue(key)
+            },
             searchPhotos: { request in
                 try await performRequest(
                     path: request.path,
                     method: request.method,
                     queryParameters: request.queryParameters,
                     baseURL: baseURL,
-                    apiKey: apiKey,
+                    apiKey: apiKey.value,
                     session: session
                 )
             }
