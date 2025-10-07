@@ -14,9 +14,34 @@
 		4BC9F1FD2E94D92400CAA2DF /* PexelsViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4BDF19142E94FE9C005F2CBF /* Exceptions for "PexelsViewer" folder in "PexelsViewer" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Config/Config.xcconfig,
+				Info.plist,
+			);
+			target = 4BC9F1FC2E94D92400CAA2DF /* PexelsViewer */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		4BDF19152E94FE9C005F2CBF /* Exceptions for "PexelsViewer" folder in "Compile Sources" phase from "PexelsViewer" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 4BC9F1F92E94D92400CAA2DF /* Sources */;
+			membershipExceptions = (
+				Config/Config.xcconfig,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4BC9F1FF2E94D92400CAA2DF /* PexelsViewer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4BDF19142E94FE9C005F2CBF /* Exceptions for "PexelsViewer" folder in "PexelsViewer" target */,
+				4BDF19152E94FE9C005F2CBF /* Exceptions for "PexelsViewer" folder in "Compile Sources" phase from "PexelsViewer" target */,
+			);
 			path = PexelsViewer;
 			sourceTree = "<group>";
 		};
@@ -260,6 +285,8 @@
 		};
 		4BC9F20C2E94D92400CAA2DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 4BC9F1FF2E94D92400CAA2DF /* PexelsViewer */;
+			baseConfigurationReferenceRelativePath = Config/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -269,6 +296,9 @@
 				DEVELOPMENT_TEAM = AQFMTW7DW4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PexelsViewer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -290,6 +320,8 @@
 		};
 		4BC9F20D2E94D92400CAA2DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 4BC9F1FF2E94D92400CAA2DF /* PexelsViewer */;
+			baseConfigurationReferenceRelativePath = Config/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -299,6 +331,9 @@
 				DEVELOPMENT_TEAM = AQFMTW7DW4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PexelsViewer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
