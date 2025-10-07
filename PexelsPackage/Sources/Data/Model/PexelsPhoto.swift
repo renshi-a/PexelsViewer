@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PexelsPhoto.swift
 //  PexelsPackage
 //
 //  Created by air2 on 2025/10/07.
@@ -20,7 +20,7 @@ public struct PexelsPhoto: Codable, Sendable, Identifiable {
     public let src: PexelsPhotoSource
     public let liked: Bool
     public let alt: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id, width, height, url, photographer
         case photographerUrl = "photographer_url"
@@ -40,10 +40,10 @@ public struct PexelsPhotoSource: Codable, Sendable {
     public let portrait: String
     public let landscape: String
     public let tiny: String
-    
+
     enum CodingKeys: String, CodingKey {
         case original
-        case large2x = "large2x"
+        case large2x
         case large, medium, small, portrait, landscape, tiny
     }
 }

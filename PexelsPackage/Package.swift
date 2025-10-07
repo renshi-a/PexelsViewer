@@ -8,9 +8,9 @@ enum PexelsModule {
     case data
     case feature
     case repository
-    
+
     var folderPath: String {
-        return switch self {
+        switch self {
         case .core:
             "Sources/Core"
         case .data:
@@ -23,13 +23,13 @@ enum PexelsModule {
     }
 
     var name: String {
-        return "PexelsModule" + folderPath
+        "PexelsModule" + folderPath
             .replacingOccurrences(of: "Sources", with: "")
             .replacingOccurrences(of: "/", with: "")
     }
 
     var dependency: Target.Dependency {
-        return .byName(name: name, condition: nil)
+        .byName(name: name, condition: nil)
     }
 }
 
@@ -42,17 +42,17 @@ struct ExternalLibrary {
         case imageViewer
 
         var packageDependency: PackageDescription.Package.Dependency {
-            return switch self {
+            switch self {
             case .swiftComposableArchitecture:
-                    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.9.0")
+                .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.9.0")
             case .charcoal:
-                    .package(url: "https://github.com/pixiv/charcoal-ios", .upToNextMajor(from: "2.0.0"))
+                .package(url: "https://github.com/pixiv/charcoal-ios", .upToNextMajor(from: "2.0.0"))
             case .alamofire:
-                    .package(url: "https://github.com/Alamofire/Alamofire", from: "5.10.2")
+                .package(url: "https://github.com/Alamofire/Alamofire", from: "5.10.2")
             case .kingfisher:
-                    .package(url: "https://github.com/onevcat/Kingfisher", from: "8.1.0")
+                .package(url: "https://github.com/onevcat/Kingfisher", from: "8.1.0")
             case .imageViewer:
-                    .package(url: "https://github.com/Krisiacik/ImageViewer", from: "7.0.0")
+                .package(url: "https://github.com/Krisiacik/ImageViewer", from: "7.0.0")
             }
         }
     }
@@ -65,17 +65,17 @@ struct ExternalLibrary {
         case imageViewer
 
         var targetDependency: Target.Dependency {
-            return switch self {
+            switch self {
             case .swiftComposableArchitecture:
-                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             case .charcoal:
-                    .product(name: "Charcoal", package: "charcoal-ios")
+                .product(name: "Charcoal", package: "charcoal-ios")
             case .alamofire:
-                    .product(name: "Alamofire", package: "Alamofire")
+                .product(name: "Alamofire", package: "Alamofire")
             case .kingfisher:
-                    .product(name: "Kingfisher", package: "Kingfisher")
+                .product(name: "Kingfisher", package: "Kingfisher")
             case .imageViewer:
-                    .product(name: "ImageViewer", package: "ImageViewer")
+                .product(name: "ImageViewer", package: "ImageViewer")
             }
         }
     }
@@ -94,14 +94,14 @@ let package = Package(
                 PexelsModule.repository.name,
                 PexelsModule.feature.name
             ]
-        ),
+        )
     ],
     dependencies: [
         ExternalLibrary.Package.swiftComposableArchitecture.packageDependency,
         ExternalLibrary.Package.charcoal.packageDependency,
         ExternalLibrary.Package.alamofire.packageDependency,
         ExternalLibrary.Package.kingfisher.packageDependency,
-        ExternalLibrary.Package.imageViewer.packageDependency,
+        ExternalLibrary.Package.imageViewer.packageDependency
     ],
     targets: [
         .target(
@@ -113,7 +113,7 @@ let package = Package(
             name: PexelsModule.data.name,
             dependencies: [
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
-                ExternalLibrary.Product.alamofire.targetDependency,
+                ExternalLibrary.Product.alamofire.targetDependency
             ],
             path: PexelsModule.data.folderPath
         ),
@@ -133,13 +133,13 @@ let package = Package(
                 ExternalLibrary.Product.kingfisher.targetDependency,
                 ExternalLibrary.Product.imageViewer.targetDependency,
                 PexelsModule.core.dependency,
-                PexelsModule.repository.dependency,
+                PexelsModule.repository.dependency
             ],
             path: PexelsModule.feature.folderPath
         ),
         .testTarget(
             name: "PexelsPackageTests",
             dependencies: []
-        ),
+        )
     ]
 )

@@ -1,12 +1,12 @@
 //
-//  File.swift
+//  SearchPhotosRequest.swift
 //  PexelsPackage
 //
 //  Created by air2 on 2025/10/07.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 // 検索リクエスト
 public struct SearchPhotosRequest: Sendable {
@@ -17,7 +17,7 @@ public struct SearchPhotosRequest: Sendable {
     public let size: String?
     public let color: String?
     public let locale: String?
-    
+
     public init(
         query: String,
         page: Int = 1,
@@ -35,26 +35,26 @@ public struct SearchPhotosRequest: Sendable {
         self.color = color
         self.locale = locale
     }
-    
+
     var path: String { "/search" }
     var method: HTTPMethod { .get }
-    
+
     var queryParameters: [String: Any] {
         var params: [String: Any] = [
             "query": query,
             "page": page,
             "per_page": perPage
         ]
-        if let orientation = orientation {
+        if let orientation {
             params["orientation"] = orientation
         }
-        if let size = size {
+        if let size {
             params["size"] = size
         }
-        if let color = color {
+        if let color {
             params["color"] = color
         }
-        if let locale = locale {
+        if let locale {
             params["locale"] = locale
         }
         return params

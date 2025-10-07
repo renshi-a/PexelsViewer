@@ -1,19 +1,18 @@
 //
-//  File.swift
+//  PexelesSearchView.swift
 //  PexelsPackage
 //
 //  Created by air2 on 2025/10/07.
 //
 
+import ComposableArchitecture
 import Foundation
 import PexelsModuleData
-import ComposableArchitecture
 import SwiftUI
 
 public struct PexelesSearchView: View {
-    
     public init() {}
-    
+
     public var body: some View {
         VStack {
             Text("PexelesSearchView")
