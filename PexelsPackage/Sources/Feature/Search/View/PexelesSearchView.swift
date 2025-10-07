@@ -76,24 +76,24 @@ public struct PexelsSearchView: View {
                 ],
                 spacing: 4
             ) {
-                ForEach(store.photos) { photo in
+                ForEach(Array(store.photos.enumerated()), id: \.element.id) { index, photo in
                     PhotoCell(photo: photo)
                         .onAppear {
-                            // 最後の写真が表示されたら次のページを読み込む
-                            if photo.id == store.photos.last?.id {
+                            let threshold = max(0, store.photos.count - 8)
+                            if index >= threshold {
                                 store.send(.loadMorePhotos)
                             }
                         }
                 }
-
-                // ローディングインジケーター
-                if store.isLoading {
-                    ProgressView()
-                        .gridCellColumns(2)
-                        .frame(height: 100)
-                }
             }
             .padding(8)
+            
+            if store.isPaging {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .foregroundStyle(charcoalColor: .surface6)
+                    .frame(height: 100)
+            }
         }
     }
 }
