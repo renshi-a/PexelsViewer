@@ -132,6 +132,7 @@ let package = Package(
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
                 ExternalLibrary.Product.kingfisher.targetDependency,
                 ExternalLibrary.Product.imageViewer.targetDependency,
+                ExternalLibrary.Product.charcoal.targetDependency,
                 PexelsModule.core.dependency,
                 PexelsModule.repository.dependency
             ],

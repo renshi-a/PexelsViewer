@@ -11,8 +11,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            PexelesSearchView()
+            PexelsSearchView()
         }
-        .padding()
     }
 }
