@@ -8,7 +8,7 @@
 import Foundation
 
 // Photoオブジェクト
-public struct PexelsPhoto: Codable, Sendable, Identifiable {
+public struct PexelsPhoto: Codable, Sendable, Identifiable, Equatable {
     public let id: Int
     public let width: Int
     public let height: Int
@@ -31,7 +31,7 @@ public struct PexelsPhoto: Codable, Sendable, Identifiable {
 }
 
 // PhotoSrc
-public struct PexelsPhotoSource: Codable, Sendable {
+public struct PexelsPhotoSource: Codable, Sendable, Equatable {
     public let original: String
     public let large2x: String
     public let large: String
