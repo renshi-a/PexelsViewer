@@ -149,7 +149,10 @@ let package = Package(
         ),
         .testTarget(
             name: "PexelsPackageTests",
-            dependencies: []
+            dependencies: [
+                ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
+                PexelsModule.feature.dependency
+            ]
         )
     ]
 )
