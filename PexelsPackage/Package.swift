@@ -40,6 +40,7 @@ struct ExternalLibrary {
         case alamofire
         case kingfisher
         case imageViewer
+        case pinRemoteImage
 
         var packageDependency: PackageDescription.Package.Dependency {
             switch self {
@@ -53,6 +54,8 @@ struct ExternalLibrary {
                 .package(url: "https://github.com/onevcat/Kingfisher", from: "8.1.0")
             case .imageViewer:
                 .package(url: "https://github.com/Krisiacik/ImageViewer", from: "7.0.0")
+            case .pinRemoteImage:
+                .package(url: "https://github.com/pinterest/PINRemoteImage", from: "3.0.4")
             }
         }
     }
@@ -63,6 +66,7 @@ struct ExternalLibrary {
         case alamofire
         case kingfisher
         case imageViewer
+        case pinRemoteImage
 
         var targetDependency: Target.Dependency {
             switch self {
@@ -76,6 +80,8 @@ struct ExternalLibrary {
                 .product(name: "Kingfisher", package: "Kingfisher")
             case .imageViewer:
                 .product(name: "ImageViewer", package: "ImageViewer")
+            case .pinRemoteImage:
+                .product(name: "PINRemoteImage", package: "PINRemoteImage")
             }
         }
     }
@@ -101,12 +107,16 @@ let package = Package(
         ExternalLibrary.Package.charcoal.packageDependency,
         ExternalLibrary.Package.alamofire.packageDependency,
         ExternalLibrary.Package.kingfisher.packageDependency,
-        ExternalLibrary.Package.imageViewer.packageDependency
+        ExternalLibrary.Package.imageViewer.packageDependency,
+        ExternalLibrary.Package.pinRemoteImage.packageDependency
     ],
     targets: [
         .target(
             name: PexelsModule.core.name,
-            dependencies: [],
+            dependencies: [
+                ExternalLibrary.Product.imageViewer.targetDependency,
+                ExternalLibrary.Product.pinRemoteImage.targetDependency
+            ],
             path: PexelsModule.core.folderPath
         ),
         .target(
@@ -131,7 +141,6 @@ let package = Package(
             dependencies: [
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
                 ExternalLibrary.Product.kingfisher.targetDependency,
-                ExternalLibrary.Product.imageViewer.targetDependency,
                 ExternalLibrary.Product.charcoal.targetDependency,
                 PexelsModule.core.dependency,
                 PexelsModule.repository.dependency

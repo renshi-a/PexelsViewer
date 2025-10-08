@@ -27,6 +27,9 @@ public struct PexelsSearchReducer: Sendable {
         public var currentPage: Int = 1
         // さらにページがあるか
         public var hasMorePages: Bool = true
+        // 詳細
+        public var selectedImageURL: URL?
+        
 
         public init() {}
     }
@@ -36,6 +39,7 @@ public struct PexelsSearchReducer: Sendable {
         case searchQuerySubmitted
         case loadMorePhotos
         case searchResponse(TaskResult<PexelsSearchResponse>)
+        case photoTapped(PexelsPhoto)
         case clearError
     }
 
@@ -123,8 +127,15 @@ public struct PexelsSearchReducer: Sendable {
                 state.errorMessage = error.localizedDescription
                 return .none
 
+            case let .photoTapped(photo):
+                state.selectedImageURL = URL(string: photo.src.large2x) 
+                return .none
+
             case .clearError:
                 state.errorMessage = nil
+                return .none
+
+            default:
                 return .none
             }
         }

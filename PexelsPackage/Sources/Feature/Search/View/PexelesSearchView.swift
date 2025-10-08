@@ -10,6 +10,7 @@ import ComposableArchitecture
 import Foundation
 import Kingfisher
 import PexelsModuleData
+import PexelsModuleCore
 import SwiftUI
 
 public struct PexelsSearchView: View {
@@ -46,6 +47,13 @@ public struct PexelsSearchView: View {
             emptyPlaceHolder
         } else {
             photoGrid
+                .overlay {
+                    if let url = store.selectedImageURL {
+                        ImageViewer(urls: [url]) {
+                            store.selectedImageURL = nil
+                        }
+                    }
+                }
         }
     }
 
@@ -71,13 +79,7 @@ public struct PexelsSearchView: View {
     @ViewBuilder
     private var photoGrid: some View {
         ScrollView {
-            LazyVGrid(
-                columns: [
-                    GridItem(.flexible(), spacing: 2),
-                    GridItem(.flexible(), spacing: 2)
-                ],
-                spacing: 4
-            ) {
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 2), GridItem(.flexible(), spacing: 2)], spacing: 4) {
                 ForEach(Array(store.photos.enumerated()), id: \.element.id) { index, photo in
                     PhotoCell(photo: photo)
                         .id(photo.id)
@@ -87,10 +89,15 @@ public struct PexelsSearchView: View {
                                 store.send(.loadMorePhotos)
                             }
                         }
+                        .onTapGesture {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            store.send(.photoTapped(photo))
+                        }
                 }
+                
             }
             .padding(8)
-            
+
             if store.isPaging {
                 ProgressView()
                     .progressViewStyle(.circular)
@@ -100,8 +107,6 @@ public struct PexelsSearchView: View {
         }
     }
 }
-
-// MARK: - Photo Cell
 
 private struct PhotoCell: View {
     let photo: PexelsPhoto
@@ -122,7 +127,7 @@ private struct PhotoCell: View {
                     .aspectRatio(1, contentMode: .fit)
                     .overlay {
                         Image(systemName: "photo")
-                            .foregroundStyle(charcoalColor: .surface3)
+                            .foregroundStyle(charcoalColor: .surface4)
                     }
             }
             .resizable()
@@ -130,9 +135,6 @@ private struct PhotoCell: View {
             .aspectRatio(1, contentMode: .fill)
             .clipped()
             .cornerRadius(8)
-            .onTapGesture {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            }
     }
 }
 
