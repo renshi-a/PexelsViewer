@@ -30,8 +30,25 @@ public struct PexelsSearchReducer: Sendable {
         // 詳細
         public var selectedImageURL: URL?
         
-
-        public init() {}
+        public init(
+            searchQuery: String = "",
+            photos: [PexelsPhoto] = [],
+            isLoading: Bool = false,
+            errorMessage: String? = nil,
+            isPaging: Bool = false,
+            currentPage: Int = 1,
+            hasMorePages: Bool = true,
+            selectedImageURL: URL? = nil
+        ) {
+            self.searchQuery = searchQuery
+            self.photos = photos
+            self.isLoading = isLoading
+            self.errorMessage = errorMessage
+            self.isPaging = isPaging
+            self.currentPage = currentPage
+            self.hasMorePages = hasMorePages
+            self.selectedImageURL = selectedImageURL
+        }
     }
 
     public enum Action: BindableAction {
@@ -124,7 +141,7 @@ public struct PexelsSearchReducer: Sendable {
                 state.isLoading = false
                 state.isPaging = false
 
-                state.errorMessage = error.localizedDescription
+                state.errorMessage = "エラーが発生しました。再度やり直してください"
                 return .none
 
             case let .photoTapped(photo):
