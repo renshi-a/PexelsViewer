@@ -1,8 +1,8 @@
-import Testing
-import Foundation
 import ComposableArchitecture
+import Foundation
 @testable import PexelsModuleData
 @testable import PexelsModuleFeature
+import Testing
 
 struct TestError: Error, Equatable {
     let message: String
@@ -10,7 +10,6 @@ struct TestError: Error, Equatable {
 
 @Suite("PexelsSearchReducer Tests")
 struct PexelsSearchReducerTests {
-    
     @Test("クエリの更新")
     @MainActor
     func bindingAction() async {
@@ -19,12 +18,12 @@ struct PexelsSearchReducerTests {
         ) {
             PexelsSearchReducer()
         }
-        
+
         await store.send(.binding(.set(\.searchQuery, "mountains"))) {
             $0.searchQuery = "mountains"
         }
     }
-    
+
     @Test("検索に成功")
     @MainActor
     func searchQuerySubmittedSuccess() async {
@@ -52,7 +51,7 @@ struct PexelsSearchReducerTests {
                 alt: "Test photo"
             )
         ]
-        
+
         let mockResponse = PexelsSearchResponse(
             page: 1,
             perPage: 20,
@@ -60,7 +59,7 @@ struct PexelsSearchReducerTests {
             totalResults: 100,
             nextPage: "https://example.com/page2"
         )
-        
+
         let store = TestStore(
             initialState: PexelsSearchReducer.State(searchQuery: "任意のクエリ")
         ) {
@@ -68,7 +67,7 @@ struct PexelsSearchReducerTests {
         } withDependencies: {
             $0.pexelsAPIClient.searchPhotos = { _ in mockResponse }
         }
-        
+
         // 検索実施
         await store.send(.searchQuerySubmitted) {
             $0.isLoading = true
@@ -76,7 +75,7 @@ struct PexelsSearchReducerTests {
             $0.currentPage = 1
             $0.hasMorePages = true
         }
-        
+
         // 検索後
         await store.receive(\.searchResponse.success) {
             $0.isLoading = false
@@ -85,7 +84,7 @@ struct PexelsSearchReducerTests {
             $0.hasMorePages = true
         }
     }
-    
+
     @Test("検索に失敗")
     @MainActor
     func searchQuerySubmittedFailure() async {
@@ -98,21 +97,21 @@ struct PexelsSearchReducerTests {
                 throw TestError(message: "Network error")
             }
         }
-        
+
         await store.send(.searchQuerySubmitted) {
             $0.isLoading = true
             $0.errorMessage = nil
             $0.currentPage = 1
             $0.hasMorePages = true
         }
-        
+
         await store.receive(\.searchResponse.failure) {
             $0.isLoading = false
             $0.isPaging = false
             $0.errorMessage = "エラーが発生しました。再度やり直してください"
         }
     }
-    
+
     @Test("ページング成功")
     @MainActor
     func loadMorePhotosSuccess() async {
@@ -140,7 +139,7 @@ struct PexelsSearchReducerTests {
                 alt: "Photo 1"
             )
         ]
-        
+
         let newPhotos = [
             PexelsPhoto(
                 id: 2,
@@ -165,7 +164,7 @@ struct PexelsSearchReducerTests {
                 alt: "Photo 2"
             )
         ]
-        
+
         let mockResponse = PexelsSearchResponse(
             page: 2,
             perPage: 20,
@@ -173,7 +172,7 @@ struct PexelsSearchReducerTests {
             totalResults: 100,
             nextPage: "https://example.com/page3"
         )
-        
+
         let store = TestStore(
             initialState: PexelsSearchReducer.State(
                 searchQuery: "nature",
@@ -186,12 +185,12 @@ struct PexelsSearchReducerTests {
         } withDependencies: {
             $0.pexelsAPIClient.searchPhotos = { _ in mockResponse }
         }
-        
+
         await store.send(.loadMorePhotos) {
             $0.isPaging = true
             $0.currentPage = 2
         }
-        
+
         await store.receive(\.searchResponse.success) {
             $0.isLoading = false
             $0.isPaging = false
@@ -199,7 +198,7 @@ struct PexelsSearchReducerTests {
             $0.hasMorePages = true
         }
     }
-    
+
     @Test("ページング失敗")
     @MainActor
     func loadMorePhotosFailure() async {
@@ -227,7 +226,7 @@ struct PexelsSearchReducerTests {
                 alt: "Photo 1"
             )
         ]
-        
+
         let store = TestStore(
             initialState: PexelsSearchReducer.State(
                 searchQuery: "nature",
@@ -242,12 +241,12 @@ struct PexelsSearchReducerTests {
                 throw TestError(message: "Network error")
             }
         }
-        
+
         await store.send(.loadMorePhotos) {
             $0.isPaging = true
             $0.currentPage = 2
         }
-        
+
         await store.receive(\.searchResponse.failure) {
             $0.isLoading = false
             $0.isPaging = false
@@ -255,7 +254,7 @@ struct PexelsSearchReducerTests {
             $0.errorMessage = "エラーが発生しました。再度やり直してください"
         }
     }
-    
+
     @Test("ページング中のページング")
     @MainActor
     func loadMorePhotosWhenAlreadyPaging() async {
@@ -268,10 +267,10 @@ struct PexelsSearchReducerTests {
         ) {
             PexelsSearchReducer()
         }
-        
+
         await store.send(.loadMorePhotos)
     }
-    
+
     @Test("ページがもうない場合のページング")
     @MainActor
     func loadMorePhotosWhenNoMorePages() async {
@@ -283,10 +282,10 @@ struct PexelsSearchReducerTests {
         ) {
             PexelsSearchReducer()
         }
-        
+
         await store.send(.loadMorePhotos)
     }
-    
+
     @Test("写真のタップ")
     @MainActor
     func photoTapped() async {
@@ -312,18 +311,18 @@ struct PexelsSearchReducerTests {
             liked: false,
             alt: "Test photo"
         )
-        
+
         let store = TestStore(
             initialState: PexelsSearchReducer.State()
         ) {
             PexelsSearchReducer()
         }
-        
+
         await store.send(.photoTapped(photo)) {
             $0.selectedImageURL = URL(string: "https://example.com/large2x")
         }
     }
-    
+
     @Test("エラークリア")
     @MainActor
     func clearError() async {
@@ -334,7 +333,7 @@ struct PexelsSearchReducerTests {
         ) {
             PexelsSearchReducer()
         }
-        
+
         await store.send(.clearError) {
             $0.errorMessage = nil
         }

@@ -9,8 +9,8 @@ import Charcoal
 import ComposableArchitecture
 import Foundation
 import Kingfisher
-import PexelsModuleData
 import PexelsModuleCore
+import PexelsModuleData
 import SwiftUI
 
 public struct PexelsSearchView: View {
@@ -94,7 +94,6 @@ public struct PexelsSearchView: View {
                             store.send(.photoTapped(photo))
                         }
                 }
-                
             }
             .padding(8)
 

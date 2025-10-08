@@ -29,7 +29,7 @@ public struct PexelsSearchReducer: Sendable {
         public var hasMorePages: Bool = true
         // 詳細
         public var selectedImageURL: URL?
-        
+
         public init(
             searchQuery: String = "",
             photos: [PexelsPhoto] = [],
@@ -145,7 +145,7 @@ public struct PexelsSearchReducer: Sendable {
                 return .none
 
             case let .photoTapped(photo):
-                state.selectedImageURL = URL(string: photo.src.large2x) 
+                state.selectedImageURL = URL(string: photo.src.large2x)
                 return .none
 
             case .clearError:
