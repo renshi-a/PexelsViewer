@@ -29,10 +29,10 @@ public struct PexelsSearchView: View {
                 transparentBackground: false,
                 interactionPassthrough: false
             )
-            .navigationTitle("写真を検索")
+            .navigationTitle(String(localized: "SearchPhotosTitle", bundle: StringsExporter.bundle))
             .searchable(
                 text: $store.searchQuery,
-                prompt: Text("Search Pexels...")
+                prompt: Text(String(localized: "SearchPhotosTextPlaceHolder", bundle: StringsExporter.bundle))
             )
             .onSubmit(of: .search) {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -64,11 +64,11 @@ public struct PexelsSearchView: View {
                 .font(.system(size: 48))
                 .foregroundStyle(charcoalColor: .surface4)
 
-            Text("写真を検索")
+            Text(String(localized: "SearchPhotosTitle", bundle: StringsExporter.bundle))
                 .charcoalTypography20Bold()
                 .foregroundStyle(charcoalColor: .text1)
 
-            Text("キーワードを入力して\nPexelsから写真を検索できます")
+            Text(String(localized: "PexelSearchEmptyPlaceHolderMessage", bundle: StringsExporter.bundle))
                 .charcoalTypography16Regular()
                 .foregroundStyle(charcoalColor: .text3)
                 .multilineTextAlignment(.center)

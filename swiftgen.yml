@@ -1,0 +1,9 @@
+strings:
+  inputs:
+    - PexelsPackage/Sources/Core/Resources/Languages/en.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: PexelsPackage/Sources/Core/Generated/L10n.swift
+      params:
+        publicAccess: true
+        bundle: Bundle.module
