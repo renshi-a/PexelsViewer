@@ -1,0 +1,57 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "PexelSearchEmptyPlaceHolderMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Enter keywords to search photos from Pexels"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーワードを入力して\nPexelsから写真を検索できます"
+          }
+        }
+      }
+    },
+    "SearchPhotosTextPlaceHolder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Pexels..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pexelsを検索..."
+          }
+        }
+      }
+    },
+    "SearchPhotosTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Photos"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真を検索"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

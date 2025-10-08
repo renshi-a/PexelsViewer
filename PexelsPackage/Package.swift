@@ -117,7 +117,10 @@ let package = Package(
                 ExternalLibrary.Product.imageViewer.targetDependency,
                 ExternalLibrary.Product.pinRemoteImage.targetDependency
             ],
-            path: PexelsModule.core.folderPath
+            path: PexelsModule.core.folderPath,
+            resources: [
+                .process("Resources")
+            ]
         ),
         .target(
             name: PexelsModule.data.name,

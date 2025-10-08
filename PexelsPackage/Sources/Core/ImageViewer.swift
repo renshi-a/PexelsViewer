@@ -1,7 +1,7 @@
 import ImageViewer
+import PINRemoteImage
 import SwiftUI
 import UIKit
-import PINRemoteImage
 
 public struct ImageViewer: UIViewControllerRepresentable {
     let urls: [URL]
@@ -31,7 +31,7 @@ public struct ImageViewer: UIViewControllerRepresentable {
         return viewController
     }
 
-    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
+    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 
     private func presentGallery(from viewController: UIViewController, coordinator: Coordinator) {
         let galleryViewController = GalleryViewController(
