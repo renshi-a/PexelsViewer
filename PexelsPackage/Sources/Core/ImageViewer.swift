@@ -44,10 +44,6 @@ public struct ImageViewer: UIViewControllerRepresentable {
             dissmissCompletion?()
         }
 
-        galleryViewController.swipedToDismissCompletion = {
-            dissmissCompletion?()
-        }
-
         viewController.present(galleryViewController, animated: true)
     }
 
@@ -93,7 +89,7 @@ public struct ImageViewerConfiguration {
                 .pagingMode(.standard),
                 .presentationStyle(.fade),
                 .hideDecorationViewsOnLaunch(false),
-                .swipeToDismissMode(.vertical),
+                .swipeToDismissMode(.never),
                 .toggleDecorationViewsBySingleTap(true),
                 .activityViewByLongPress(true),
                 .deleteButtonMode(.none),
