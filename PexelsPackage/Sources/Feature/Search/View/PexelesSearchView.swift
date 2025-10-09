@@ -41,6 +41,7 @@ public struct PexelsSearchView: View {
             .fullScreenCover(item: $store.scope(state: \.pexelsDetail, action: \.pexelsDetail)) { store in
                 PexelsDetailView(store: store)
             }
+            .alert($store.scope(state: \.alert, action: \.alert))
         }
     }
 

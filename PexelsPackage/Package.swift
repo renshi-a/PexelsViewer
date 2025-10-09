@@ -132,7 +132,7 @@ let package = Package(
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
                 ExternalLibrary.Product.kingfisher.targetDependency,
                 ExternalLibrary.Product.charcoal.targetDependency,
-                PexelsModule.core.dependency,
+                PexelsModule.core.dependency
             ],
             path: PexelsModule.feature.folderPath
         ),
@@ -140,6 +140,7 @@ let package = Package(
             name: "PexelsPackageTests",
             dependencies: [
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
+                PexelsModule.data.dependency,
                 PexelsModule.feature.dependency
             ]
         )

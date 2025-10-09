@@ -19,8 +19,6 @@ public struct PexelsSearchReducer: Sendable {
         public var photos: [PexelsPhoto] = []
         // ローディング中か
         public var isLoading: Bool = false
-        // エラーメッセージ
-        public var errorMessage: String?
         // ページング中か
         public var isPaging: Bool = false
         // ページ
@@ -29,12 +27,13 @@ public struct PexelsSearchReducer: Sendable {
         public var hasMorePages: Bool = true
         // 詳細
         @Presents public var pexelsDetail: PexelsDetailReducer.State?
+        // アラート
+        @Presents var alert: AlertState<Action.Alert>?
 
         public init(
             searchQuery: String = "",
             photos: [PexelsPhoto] = [],
             isLoading: Bool = false,
-            errorMessage: String? = nil,
             isPaging: Bool = false,
             currentPage: Int = 1,
             hasMorePages: Bool = true
@@ -42,7 +41,6 @@ public struct PexelsSearchReducer: Sendable {
             self.searchQuery = searchQuery
             self.photos = photos
             self.isLoading = isLoading
-            self.errorMessage = errorMessage
             self.isPaging = isPaging
             self.currentPage = currentPage
             self.hasMorePages = hasMorePages
@@ -56,7 +54,8 @@ public struct PexelsSearchReducer: Sendable {
         case searchResponse(TaskResult<PexelsSearchResponse>)
         case photoTapped(PexelsPhoto)
         case pexelsDetail(PresentationAction<PexelsDetailReducer.Action>)
-        case clearError
+        case alert(PresentationAction<Alert>)
+        public enum Alert: Equatable {}
     }
 
     @Dependency(\.pexelsAPIClient) var pexelsClient
@@ -77,7 +76,6 @@ public struct PexelsSearchReducer: Sendable {
                 }
 
                 state.isLoading = true
-                state.errorMessage = nil
                 state.currentPage = 1
                 state.hasMorePages = true
 
@@ -136,19 +134,17 @@ public struct PexelsSearchReducer: Sendable {
 
                 return .none
 
-            case let .searchResponse(.failure):
+            case .searchResponse(.failure):
                 state.isLoading = false
                 state.isPaging = false
 
-                state.errorMessage = "Error Occuerd. Please try again later."
+                state.alert = AlertState {
+                    TextState("Error Occuerd. Please try again later.")
+                }
                 return .none
 
             case let .photoTapped(photo):
                 state.pexelsDetail = .init(photo: photo)
-                return .none
-
-            case .clearError:
-                state.errorMessage = nil
                 return .none
 
             default:
@@ -158,5 +154,6 @@ public struct PexelsSearchReducer: Sendable {
         .ifLet(\.$pexelsDetail, action: \.pexelsDetail) {
             PexelsDetailReducer()
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 }
