@@ -1,5 +1,5 @@
 {
-  "originHash" : "e631a13feefe10609a431171e58b3276be58caf694156d3aa39096f1514a1f39",
+  "originHash" : "722580eb44d767989710d249dc7ec331b8dd9cde3060dcf5c7fe5758dbec7ef1",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "5928286acce13def418ec36d05a001a9641086f2",
         "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "dynamiccolor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yannickl/DynamicColor",
+      "state" : {
+        "revision" : "d9beca13ca85baa50ee29832d0db5129fba69630",
+        "version" : "5.0.1"
       }
     },
     {

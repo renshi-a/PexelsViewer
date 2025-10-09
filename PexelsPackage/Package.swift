@@ -38,6 +38,7 @@ struct ExternalLibrary {
         case kingfisher
         case imageViewer
         case pinRemoteImage
+        case dynamicColor
 
         var packageDependency: PackageDescription.Package.Dependency {
             switch self {
@@ -53,6 +54,8 @@ struct ExternalLibrary {
                 .package(url: "https://github.com/Krisiacik/ImageViewer", from: "7.0.0")
             case .pinRemoteImage:
                 .package(url: "https://github.com/pinterest/PINRemoteImage", from: "3.0.4")
+            case .dynamicColor:
+                .package(url: "https://github.com/yannickl/DynamicColor", from: "5.0.1")
             }
         }
     }
@@ -64,6 +67,7 @@ struct ExternalLibrary {
         case kingfisher
         case imageViewer
         case pinRemoteImage
+        case dynamicColor
 
         var targetDependency: Target.Dependency {
             switch self {
@@ -79,6 +83,8 @@ struct ExternalLibrary {
                 .product(name: "ImageViewer", package: "ImageViewer")
             case .pinRemoteImage:
                 .product(name: "PINRemoteImage", package: "PINRemoteImage")
+            case .dynamicColor:
+                .product(name: "DynamicColor", package: "DynamicColor")
             }
         }
     }
@@ -104,7 +110,8 @@ let package = Package(
         ExternalLibrary.Package.alamofire.packageDependency,
         ExternalLibrary.Package.kingfisher.packageDependency,
         ExternalLibrary.Package.imageViewer.packageDependency,
-        ExternalLibrary.Package.pinRemoteImage.packageDependency
+        ExternalLibrary.Package.pinRemoteImage.packageDependency,
+        ExternalLibrary.Package.dynamicColor.packageDependency
     ],
     targets: [
         .target(
@@ -132,6 +139,7 @@ let package = Package(
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
                 ExternalLibrary.Product.kingfisher.targetDependency,
                 ExternalLibrary.Product.charcoal.targetDependency,
+                ExternalLibrary.Product.dynamicColor.targetDependency,
                 PexelsModule.core.dependency
             ],
             path: PexelsModule.feature.folderPath
