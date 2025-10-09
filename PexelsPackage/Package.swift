@@ -7,7 +7,6 @@ enum PexelsModule {
     case core
     case data
     case feature
-    case repository
 
     var folderPath: String {
         switch self {
@@ -17,8 +16,6 @@ enum PexelsModule {
             "Sources/Data"
         case .feature:
             "Sources/Feature"
-        case .repository:
-            "Sources/Repository"
         }
     }
 
@@ -97,7 +94,6 @@ let package = Package(
             targets: [
                 PexelsModule.core.name,
                 PexelsModule.data.name,
-                PexelsModule.repository.name,
                 PexelsModule.feature.name
             ]
         )
@@ -131,22 +127,12 @@ let package = Package(
             path: PexelsModule.data.folderPath
         ),
         .target(
-            name: PexelsModule.repository.name,
-            dependencies: [
-                ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
-                PexelsModule.core.dependency,
-                PexelsModule.data.dependency
-            ],
-            path: PexelsModule.repository.folderPath
-        ),
-        .target(
             name: PexelsModule.feature.name,
             dependencies: [
                 ExternalLibrary.Product.swiftComposableArchitecture.targetDependency,
                 ExternalLibrary.Product.kingfisher.targetDependency,
                 ExternalLibrary.Product.charcoal.targetDependency,
                 PexelsModule.core.dependency,
-                PexelsModule.repository.dependency
             ],
             path: PexelsModule.feature.folderPath
         ),
