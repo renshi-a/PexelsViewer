@@ -123,7 +123,7 @@ private struct PhotoCell: View {
                     .aspectRatio(1, contentMode: .fit)
                     .overlay {
                         Image(systemName: "photo")
-                            .foregroundStyle(charcoalColor: .surface4)
+                            .foregroundStyle(charcoalColor: .assertive)
                     }
             }
             .resizable()
