@@ -71,7 +71,6 @@ struct PexelsSearchReducerTests {
         // 検索実施
         await store.send(.searchQuerySubmitted) {
             $0.isLoading = true
-            $0.errorMessage = nil
             $0.currentPage = 1
             $0.hasMorePages = true
         }
@@ -100,7 +99,6 @@ struct PexelsSearchReducerTests {
 
         await store.send(.searchQuerySubmitted) {
             $0.isLoading = true
-            $0.errorMessage = nil
             $0.currentPage = 1
             $0.hasMorePages = true
         }
@@ -108,7 +106,9 @@ struct PexelsSearchReducerTests {
         await store.receive(\.searchResponse.failure) {
             $0.isLoading = false
             $0.isPaging = false
-            $0.errorMessage = "エラーが発生しました。再度やり直してください"
+            $0.alert = AlertState {
+                TextState("Error Occuerd. Please try again later.")
+            }
         }
     }
 
@@ -251,7 +251,9 @@ struct PexelsSearchReducerTests {
             $0.isLoading = false
             $0.isPaging = false
             $0.photos = initialPhotos
-            $0.errorMessage = "エラーが発生しました。再度やり直してください"
+            $0.alert = AlertState {
+                TextState("Error Occuerd. Please try again later.")
+            }
         }
     }
 
@@ -319,23 +321,7 @@ struct PexelsSearchReducerTests {
         }
 
         await store.send(.photoTapped(photo)) {
-            $0.selectedImageURL = URL(string: "https://example.com/large2x")
-        }
-    }
-
-    @Test("エラークリア")
-    @MainActor
-    func clearError() async {
-        let store = TestStore(
-            initialState: PexelsSearchReducer.State(
-                errorMessage: "Some error"
-            )
-        ) {
-            PexelsSearchReducer()
-        }
-
-        await store.send(.clearError) {
-            $0.errorMessage = nil
+            $0.pexelsDetail = .init(photo: photo)
         }
     }
 }
