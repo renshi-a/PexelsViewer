@@ -38,6 +38,9 @@ public struct PexelsSearchView: View {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 store.send(.searchQuerySubmitted, animation: .easeInOut)
             }
+            .fullScreenCover(item: $store.scope(state: \.pexelsDetail, action: \.pexelsDetail)) { store in
+                PexelsDetailView(store: store)
+            }
         }
     }
 
@@ -47,13 +50,6 @@ public struct PexelsSearchView: View {
             emptyPlaceHolder
         } else {
             photoGrid
-                .overlay {
-                    if let url = store.selectedImageURL {
-                        ImageViewer(urls: [url]) {
-                            store.selectedImageURL = nil
-                        }
-                    }
-                }
         }
     }
 

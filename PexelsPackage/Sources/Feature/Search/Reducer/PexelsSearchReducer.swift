@@ -28,7 +28,7 @@ public struct PexelsSearchReducer: Sendable {
         // さらにページがあるか
         public var hasMorePages: Bool = true
         // 詳細
-        public var selectedImageURL: URL?
+        @Presents public var pexelsDetail: PexelsDetailReducer.State?
 
         public init(
             searchQuery: String = "",
@@ -37,8 +37,7 @@ public struct PexelsSearchReducer: Sendable {
             errorMessage: String? = nil,
             isPaging: Bool = false,
             currentPage: Int = 1,
-            hasMorePages: Bool = true,
-            selectedImageURL: URL? = nil
+            hasMorePages: Bool = true
         ) {
             self.searchQuery = searchQuery
             self.photos = photos
@@ -47,7 +46,6 @@ public struct PexelsSearchReducer: Sendable {
             self.isPaging = isPaging
             self.currentPage = currentPage
             self.hasMorePages = hasMorePages
-            self.selectedImageURL = selectedImageURL
         }
     }
 
@@ -57,6 +55,7 @@ public struct PexelsSearchReducer: Sendable {
         case loadMorePhotos
         case searchResponse(TaskResult<PexelsSearchResponse>)
         case photoTapped(PexelsPhoto)
+        case pexelsDetail(PresentationAction<PexelsDetailReducer.Action>)
         case clearError
     }
 
@@ -137,15 +136,15 @@ public struct PexelsSearchReducer: Sendable {
 
                 return .none
 
-            case let .searchResponse(.failure(error)):
+            case let .searchResponse(.failure):
                 state.isLoading = false
                 state.isPaging = false
 
-                state.errorMessage = "エラーが発生しました。再度やり直してください"
+                state.errorMessage = "Error Occuerd. Please try again later."
                 return .none
 
             case let .photoTapped(photo):
-                state.selectedImageURL = URL(string: photo.src.large2x)
+                state.pexelsDetail = .init(photo: photo)
                 return .none
 
             case .clearError:
@@ -155,6 +154,9 @@ public struct PexelsSearchReducer: Sendable {
             default:
                 return .none
             }
+        }
+        .ifLet(\.$pexelsDetail, action: \.pexelsDetail) {
+            PexelsDetailReducer()
         }
     }
 }
