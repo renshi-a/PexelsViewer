@@ -6,16 +6,16 @@ import UIKit
 public struct ImageViewer: UIViewControllerRepresentable {
     let urls: [URL]
     let configuration: ImageViewerConfiguration
-    let completion: (() -> Void)?
+    let dissmissCompletion: (() -> Void)?
 
     public init(
         urls: [URL],
         configuration: ImageViewerConfiguration = .default(),
-        completion: (() -> Void)? = nil
+        dissmissCompletion: (() -> Void)? = nil
     ) {
         self.urls = urls
         self.configuration = configuration
-        self.completion = completion
+        self.dissmissCompletion = dissmissCompletion
     }
 
     public func makeUIViewController(context: Context) -> UIViewController {
@@ -41,7 +41,11 @@ public struct ImageViewer: UIViewControllerRepresentable {
         )
 
         galleryViewController.closedCompletion = {
-            completion?()
+            dissmissCompletion?()
+        }
+
+        galleryViewController.swipedToDismissCompletion = {
+            dissmissCompletion?()
         }
 
         viewController.present(galleryViewController, animated: true)
@@ -53,7 +57,6 @@ public struct ImageViewer: UIViewControllerRepresentable {
 
     public class Coordinator: NSObject, GalleryItemsDataSource {
         let urls: [URL]
-        var currentIndex: Int = 0
 
         init(urls: [URL]) {
             self.urls = urls
@@ -88,7 +91,7 @@ public struct ImageViewerConfiguration {
             galleryConfiguration: [
                 .closeButtonMode(.builtIn),
                 .pagingMode(.standard),
-                .presentationStyle(.displacement),
+                .presentationStyle(.fade),
                 .hideDecorationViewsOnLaunch(false),
                 .swipeToDismissMode(.vertical),
                 .toggleDecorationViewsBySingleTap(true),
@@ -101,8 +104,7 @@ public struct ImageViewerConfiguration {
                 .overlayColorOpacity(1),
                 .overlayBlurOpacity(1),
                 .overlayBlurStyle(.light),
-                .videoControlsColor(.white),
-                .maximumZoomScale(8),
+                .maximumZoomScale(16),
                 .swipeToDismissThresholdVelocity(500),
                 .doubleTapToZoomDuration(0.15),
                 .blurPresentDuration(0.3),
