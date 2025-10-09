@@ -12,6 +12,7 @@ import Kingfisher
 import PexelsModuleCore
 import PexelsModuleData
 import SwiftUI
+import DynamicColor
 
 public struct PexelsSearchView: View {
     @Bindable var store: StoreOf<PexelsSearchReducer> = .init(initialState: .init(), reducer: { PexelsSearchReducer() })
@@ -111,7 +112,7 @@ private struct PhotoCell: View {
         KFImage(URL(string: photo.src.tiny))
             .placeholder {
                 Rectangle()
-                    .fill(Color(hex: photo.avgColor).opacity(0.6))
+                    .fill(Color(hexString: "#\(photo.avgColor)").opacity(0.6))
                     .aspectRatio(1, contentMode: .fit)
                     .overlay {
                         ProgressView()
@@ -131,22 +132,5 @@ private struct PhotoCell: View {
             .aspectRatio(1, contentMode: .fill)
             .clipped()
             .cornerRadius(8)
-    }
-}
-
-// MARK: - Color Extension
-
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
-        let scanner = Scanner(string: hex)
-        var rgbValue: UInt64 = 0
-        scanner.scanHexInt64(&rgbValue)
-
-        let r = Double((rgbValue & 0xFF0000) >> 16) / 255.0
-        let g = Double((rgbValue & 0x00FF00) >> 8) / 255.0
-        let b = Double(rgbValue & 0x0000FF) / 255.0
-
-        self.init(red: r, green: g, blue: b)
     }
 }
